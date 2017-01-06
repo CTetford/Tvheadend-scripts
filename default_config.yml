@@ -1,0 +1,18 @@
+tvheadend:
+    host: 127.0.0.1
+    port: 9981
+    user: USER
+    pass: PASS
+
+pushbullet:
+    api: API
+    
+sonarr:
+    output: /path/ #Ensure trailing slash remains
+    api: API
+    host: IP
+    port: 8989
+
+tvdb:
+    api: API
+    
