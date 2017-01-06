@@ -8,6 +8,7 @@ Tvheadend-scripts will provide an interface between Tvheadend and TVDB and Sonar
 Using the following inputs for Tvheadend's pre/post-recording scripts it will accurately determine the season and episode numbers of a given show from TVDB and forward the file to Sonarr for processing.
 
 Rename default_config.yml to config.yml and modify to suit your setup.
+
 Run the scripts with the following order (e.g. recording-start.py  "%s" "%f" "%b" "%S" "%e")
 
 * "%t" - Title of episode
