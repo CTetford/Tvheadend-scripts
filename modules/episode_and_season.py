@@ -56,12 +56,12 @@ def get_episode_by_subtitle(tvdb_api, title, subtitle_input, tvdb_id_list):
 				series_results.append (max(episodes,key=lambda x:x[4]))
 		#Return the result of the highest levenshtein value. If the closestly matched episode is less than 70% confidence, episode has not been found.
 		if max(series_results,key=lambda x:x[4])[4] < 0.7:
-			raise NameError("Episode match less than 70% confidence. Episode subtitle not found.")
+			raise NameError("Episode match less than 70% confidence. Episode subtitle not found. Highest confidence value is [%1.3f]. Input title is [%s]. Input subtitle is %s" % (max(series_results,key=lambda x:x[4])[4], title, subtitle_input))
 			return
 		else:
 			result.append (max(series_results,key=lambda x:x[4]))
 	return result
-	
+
 def get_episode_by_airdate(tvdb_api, title, airdate, tvdb_id_list):
 	result = []
 	tvdb_id_list_flag = False

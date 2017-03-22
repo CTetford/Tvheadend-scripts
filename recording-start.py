@@ -22,7 +22,7 @@ filename = sys.argv[4]
 date_epoch = sys.argv[5]
 error = sys.argv[6]
 #Convert tvheadend's time since epoch airdate to %Y-%m-%d format
-date = time.strftime('%Y-%m-%d', time.localtime(int(date_epoch)))
+airdate = time.strftime('%Y-%m-%d', time.localtime(int(date_epoch)))
 
 #Import Parameters
 pushbullet_api = config["pushbullet"]["api"]
@@ -50,9 +50,19 @@ try:
 except NameError as err:
 	requests.post("https://api.pushbullet.com/v2/pushes", data = {"type":"note", "body":err.args, "title":"Tvheadend"}, headers={"Access-Token":pushbullet_api})
 	print(err.args)
-	quit()
+	try:
+		episode_info = episode_and_season.get_episode_by_airdate(tvdb_api, title, airdate, tvdb_id_list)
+	except NameError as err:
+		requests.post("https://api.pushbullet.com/v2/pushes", data = {"type":"note", "body":err.args, "title":"Tvheadend"}, headers={"Access-Token":pushbullet_api})
+		print(err.args)
+		quit()
+	else:
+		print ("Episode info found by airdate:")
+		print (episode_info)
+		requests.post("https://api.pushbullet.com/v2/pushes", data = {"type":"note", "body":"Episode found by airdate. %s" %(episode_info), "title":"Tvheadend"}, headers={"Access-Token":pushbullet_api})
+		tvdb_id = episode_info[0][3]
 else:
-	print ("Episode info found:")
+	print ("Episode info found by subtitle:")
 	print (episode_info)
 	tvdb_id = episode_info[0][3]
 
